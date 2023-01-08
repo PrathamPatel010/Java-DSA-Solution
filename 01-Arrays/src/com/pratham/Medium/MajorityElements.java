@@ -2,12 +2,14 @@
 
 package com.pratham.Medium;
 
+import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MajorityElements {
     public static void main(String[] args) {
         int[] arr = {2,2,1,1,1,2,2};
-        System.out.println(majorityElement(arr));
+        System.out.println(majorityElement2(arr));
     }
 
     // Brute force : O(N*N)
@@ -26,15 +28,36 @@ public class MajorityElements {
         return -1;
     }
 
+    // Better:Using Hashmaps
+    public static int majorityElement2(int[] nums) {
+        HashMap<Integer,Integer> maps = new HashMap<>();
+        int majVal=0;
+        int majKey=0;
+        for(int i=0;i<nums.length;i++){
+            if(maps.containsKey(nums[i])){
+                maps.put(nums[i],maps.get(nums[i])+1);
+            } else{
+                maps.put(nums[i],1);
+            }
+        }
+        for(Map.Entry<Integer,Integer> e : maps.entrySet()){
+            if(e.getValue()>majVal){
+                majVal = e.getValue();
+                majKey = e.getKey();
+            }
+        }
+        return majKey;
+    }
+
     // Optimized: Moore's voting algo
-    public int majorityElement2(int[] nums) {
+    public static int majorityElement3(int[] nums) {
         int count=0;
         int ans=0;
         for(int i=0;i<nums.length;i++){
             if(count==0){
                 ans = nums[i];
             }
-            if(ans==nums[i]) {
+            if(nums[i]==ans){
                 count++;
             } else{
                 count--;
