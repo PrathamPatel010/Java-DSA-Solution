@@ -7,57 +7,64 @@ import static com.pratham.Easy.MoveZeros.swap;
 
 public class SortArrayOf012 {
     public static void main(String[] args) {
-
+        int[] arr = {2,0,2,1,1,0};
+        System.out.println(Arrays.toString(arr));
+        sortColors3(arr);
+        System.out.println(Arrays.toString(arr));
     }
 
     // Brute force: using library function
     // Time: O(NlogN)
-    public void sortColors(int[] nums) {
+    public static void sortColors(int[] nums) {
         Arrays.sort(nums);
     }
 
-    // Better: Using counting sort
-    public void sortColors2(int[] nums) {
-        // count no. of 0,1,2
+    // Better: by counting and putting
+    // Time:O(N) && Space:O(1)
+    public static void sortColors2(int[] nums) {
         int c0=0,c1=0,c2=0;
-        for (int num : nums) {
-            if (num == 0) {
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==0){
                 c0++;
-            } else if (num == 1) {
+            } else if(nums[i]==1){
                 c1++;
-            } else {
+            } else{
                 c2++;
             }
         }
-        // now put the 0s,1s,2s in the array
-    }
-
-    // Optimized: Dutch National Flag Algo
-    public void sortColors3(int[] nums) {
-        int low=0;
-        int mid=0;
-        int high=nums.length-1;
-        while (mid<=high){
-            switch(nums[mid]){
-                case 0:{
-                    swap(nums,low,mid);
-                    low++;
-                    mid++;
-                    break;
-                }
-                case 1:{
-                    mid++;
-                    break;
-                }
-                case 2:{
-                    swap(nums,mid,high);
-                    mid++;
-                    high--;
-                    break;
-                }
-            }
+        // put all elements in array
+        int j=0;
+        while(c0!=0){
+            nums[j] = 0;
+            j++;
+            c0--;
+        }
+        while(c1!=0){
+            nums[j] = 1;
+            j++;
+            c1--;
+        }
+        while(c2!=0){
+            nums[j] = 2;
+            j++;
+            c2--;
         }
     }
 
-
+    // Optimized: Dutch National Flag Algo
+    public static void sortColors3(int[] nums) {
+        int low=0,mid=0,high=nums.length-1;
+        while(mid<=high){
+            if(nums[mid]==0){
+                swap(nums,low,mid);
+                low++;
+                mid++;
+            } else if(nums[mid]==1){
+                mid++;
+            } else{
+                swap(nums,mid,high);
+                high--;
+            }
+        }
+    }
 }

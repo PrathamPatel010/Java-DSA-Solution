@@ -4,13 +4,11 @@ package com.pratham.Medium;
 public class MaxSubarraySum {
     public static void main(String[] args) {
         int[] arr = {-2,1,-3,4,-1,2,1,-5,4};
+        int[] arr2 = {-2,-1};
         System.out.println(maxSubArray(arr));
         System.out.println(maxSubArray1(arr));
-        System.out.println(maxSubArray2(arr));
+        System.out.println(maxSubArray2(arr2));
     }
-
-
-
 
     // Brute force
     public static int maxSubArray(int[] nums) {
@@ -49,18 +47,14 @@ public class MaxSubarraySum {
         return ans;
     }
 
-    // Optimized : Kadane's Algo
+    // Optimized : Modified Kadane's Algo
     public static int maxSubArray2(int[] nums) {
-        int current_sum=0;
-        int max_sum=nums[0];
-        for(int i=0;i<nums.length;i++){
-            current_sum = current_sum + nums[i];
-            if(current_sum<0){
-                current_sum = 0;
-            }
-            max_sum = Math.max(current_sum,max_sum);
+        int maxSoFar=nums[0], maxTillHere=nums[0];
+        for (int i=1;i<nums.length;i++){
+            maxTillHere= Math.max(maxTillHere+nums[i],nums[i]);
+            maxSoFar=Math.max(maxSoFar, maxTillHere);
         }
-        return max_sum;
+        return maxSoFar;
     }
-
 }
+
