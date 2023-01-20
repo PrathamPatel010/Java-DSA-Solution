@@ -68,4 +68,17 @@ public class RotatedArray {
         }
         return -1;
     }
+
+    // method to find pivot if array contain duplicate elements
+    static int getPivot(int[] arr){
+        int ans = -1;
+        int start = 0;
+        int end = arr.length-1;
+        while (start<=end) {
+            int mid = start + (end-start)/2;
+            // cases over here
+
+        }
+        return ans;
+    }
 }
